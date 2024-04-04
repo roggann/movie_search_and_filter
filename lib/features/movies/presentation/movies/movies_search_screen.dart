@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_search_and_filter/features/movies/application/providers.dart';
 import 'package:movie_search_and_filter/features/movies/data/movies_pagination.dart';
+import 'package:movie_search_and_filter/features/movies/presentation/movie_details_screen/movie_details_screen.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile_shimmer.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies/movies_search_bar.dart';
@@ -52,7 +53,11 @@ class MoviesSearchScreen extends ConsumerWidget {
                       final movie = movies[indexInPage];
                       return MovieListTile(
                         movie: movie,
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () =>  Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => MovieDetailsScreen(movieId: movie.id, movie: movie,),
+                          ),
+                        ),
                       );
                     },
                   );

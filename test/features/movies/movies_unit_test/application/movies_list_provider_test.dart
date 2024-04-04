@@ -41,11 +41,41 @@ void main() {
     var moviesListFromProvider = await container.read(fetchPaginatedMoviesFutureProvider(MoviesPagination(page: 1, query: '')).future);
     /// we compare two lists using expect function
     expect(moviesListFromProvider, movies);
-    expect(moviesListFromProvider.length,3);
+    expect(moviesListFromProvider.length,4);
 
     /// fetch movies with search of 'The Marvels' movie
     /// should return one movie
     var movieWithSearch = await container.read(fetchPaginatedMoviesFutureProvider(MoviesPagination(page: 1, query: 'The Marvels')).future);
-    expect(movieWithSearch, moviesWithSearch);
+    expect(movieWithSearch, marvelMovie);
   });
+
+  test('test fetch The Marvels movie by it\'s id', () async {
+    final fakeMoviesRepository = FakeMoviesRepository();
+    final listener = Listener();
+    final MarvelMovieId = 609681;
+    final container = ProviderContainer(
+      overrides: [
+        ///overriding repository provider with the fake repository
+        moviesRepositoryProvider.overrideWithValue(fakeMoviesRepository),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    ///test the initial state for getMovieByIdProvider provider
+    /// it should be null state then loading state after firing the provider
+    container.listen(
+      getMovieByIdProvider(MarvelMovieId),
+      listener,
+      fireImmediately: true,
+    );
+    verify(() => listener(null, const AsyncLoading<TMDBMovie>()));
+    verifyNoMoreInteractions(listener);
+
+    /// get marvel movie by id
+    var movieFromProvider = await container.read(getMovieByIdProvider(MarvelMovieId).future);
+    /// we compare two movies if they are the same
+    expect(movieFromProvider, marvelMovie.first);
+
+  });
+
 }

@@ -53,3 +53,9 @@ final fetchPaginatedMoviesFutureProvider = AutoDisposeFutureProviderFamily<List<
     );
   }
 });
+
+
+// family future provider for getting a movie details by id
+final getMovieByIdProvider = FutureProviderFamily<TMDBMovie,int>((ref, id) {
+  return ref.watch(moviesRepositoryProvider).movie( movieId: id);
+} );

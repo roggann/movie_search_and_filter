@@ -48,6 +48,21 @@ class MoviesRepository {
     return movies.results;
   }
 
+  /// fetch a movie by ID
+  Future<TMDBMovie> movie({required int movieId, CancelToken? cancelToken}) async {
+    final url = Uri(
+      scheme: 'https',
+      host: 'api.themoviedb.org',
+      path: '3/movie/$movieId',
+      queryParameters: {
+        'api_key': apiKey,
+        'include_adult': 'false',
+      },
+    ).toString();
+    final response = await client.get(url, cancelToken: cancelToken);
+    return TMDBMovie.fromJson(response.data);
+  }
+
 }
 
 final moviesRepositoryProvider = Provider<MoviesRepository>(
