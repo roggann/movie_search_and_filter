@@ -1,31 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_search_and_filter/features/movies/application/providers.dart';
-import 'package:movie_search_and_filter/features/movies/data/movies_pagination.dart';
+import 'package:movie_search_and_filter/features/movies/data/movies_filter_option.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movie_details_screen/movie_details_screen.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile_shimmer.dart';
-import 'package:movie_search_and_filter/features/movies/presentation/movies/movies_search_bar.dart';
-import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/categories_section.dart';
 
-class MoviesSearchScreen extends ConsumerWidget {
-  static const String routeName = 'MoviesSearchScreen';
-
-  const MoviesSearchScreen({super.key});
-
+class FilteredMoviesScreen extends ConsumerWidget {
+  static const String routeName = 'FilteredMoviesScreen';
+  final int? releaseYear;
+  final double? rating;
+  final String? genre;
+  final int? genreId;
+  FilteredMoviesScreen({ this.rating, this.releaseYear, this.genre,this.genreId,super.key});
   static const pageSize = 20;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final query = ref.watch(moviesSearchTextProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TMDB Movies'),
+        title: Text(rating==null? (releaseYear==null?'Popular in ${genre}':'Released in $releaseYear'):'Movies with rating of ${rating}'),
       ),
       body: Column(
         children: [
-          const MoviesSearchBar(),
-          CategoriesSection(),
           Expanded(
             child: RefreshIndicator(
               onRefresh: () {
@@ -33,8 +29,8 @@ class MoviesSearchScreen extends ConsumerWidget {
                 ref.invalidate(fetchPaginatedMoviesFutureProvider);
                 // fetch the first page again
                 return ref.read(
-                  fetchPaginatedMoviesFutureProvider(
-                    MoviesPagination(page: 1, query: query),
+                  fetchFilteredMoviesProvider(
+                    MoviesFilterOptions(page: 1, genreId: genreId,rating: rating,releaseYear: releaseYear),
                   ).future,
                 );
               },
@@ -43,8 +39,8 @@ class MoviesSearchScreen extends ConsumerWidget {
                   final page = index ~/ pageSize + 1;
                   final indexInPage = index % pageSize;
                   final moviesList = ref.watch(
-                    fetchPaginatedMoviesFutureProvider(
-                        MoviesPagination(page: page, query: query)),
+                    fetchFilteredMoviesProvider(
+                        MoviesFilterOptions(page: page, genreId: genreId,rating: rating,releaseYear: releaseYear)),
                   );
                   return moviesList.when(
                     error: (err, stack) => Text('Error $err'),

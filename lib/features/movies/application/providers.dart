@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_search_and_filter/features/movies/data/movies_filter_option.dart';
 import 'package:movie_search_and_filter/features/movies/data/movies_pagination.dart';
 import 'package:movie_search_and_filter/features/movies/data/movies_repository.dart';
 import 'package:movie_search_and_filter/features/movies/domain/tmdb_movie.dart';
 import 'package:movie_search_and_filter/utils/exceptions.dart';
 
+// family future provider for getting a movie by name "query" or without
 final fetchPaginatedMoviesFutureProvider = AutoDisposeFutureProviderFamily<List<TMDBMovie>, MoviesPagination>((ref, moviesPagination) async {
   final moviesRepo = ref.watch(moviesRepositoryProvider);
 // Cancel the page request if the UI no longer needs it
@@ -54,8 +56,21 @@ final fetchPaginatedMoviesFutureProvider = AutoDisposeFutureProviderFamily<List<
   }
 });
 
-
 // family future provider for getting a movie details by id
-final getMovieByIdProvider = FutureProviderFamily<TMDBMovie,int>((ref, id) {
-  return ref.watch(moviesRepositoryProvider).movie( movieId: id);
-} );
+final getMovieByIdProvider = FutureProviderFamily<TMDBMovie, int>((ref, id) {
+  return ref.watch(moviesRepositoryProvider).movie(movieId: id);
+});
+
+// family future provider for getting a movies list with filters
+final fetchFilteredMoviesProvider = AutoDisposeFutureProviderFamily<List<TMDBMovie>, MoviesFilterOptions>((ref, moviesFilterOptions) async {
+  final moviesRepo = ref.watch(moviesRepositoryProvider);
+
+  if (moviesFilterOptions.genreId != null) {
+    return moviesRepo.filterMovies(page: moviesFilterOptions.page, genreId: moviesFilterOptions.genreId);
+  } else if (moviesFilterOptions.releaseYear != null) {
+    return moviesRepo.filterMovies(page: moviesFilterOptions.page, releaseYear: moviesFilterOptions.releaseYear);
+  } else if (moviesFilterOptions.rating != null) {
+    return moviesRepo.filterMovies(page: moviesFilterOptions.page, rating: moviesFilterOptions.rating);
+  }
+  return [];
+});

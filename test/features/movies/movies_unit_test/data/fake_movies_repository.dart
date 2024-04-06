@@ -120,4 +120,23 @@ class FakeMoviesRepository extends Mock implements MoviesRepository {
     // return the movie with the specified id
     return movies.firstWhere((element) => element.id == movieId);
   }
+
+  Future<List<TMDBMovie>> filterMovies(
+      {required int page,int? releaseYear,double? rating,int? genreId, CancelToken? cancelToken}) async {
+    List<TMDBMovie> filteredMovies = [];
+    if(releaseYear != null){
+      filteredMovies= movies.where((element) => element.releaseDate!.contains(releaseYear.toString())).toList();
+    }
+    if(rating != null){
+      filteredMovies= movies.where((element) => element.voteAverage!>=rating).toList();
+
+    }
+    if(genreId != null){
+      filteredMovies= movies.where((element) => element.genreIds!.contains(genreId)).toList();
+    }
+
+
+    return filteredMovies;
+  }
+
 }

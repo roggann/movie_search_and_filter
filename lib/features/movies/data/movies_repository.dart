@@ -36,7 +36,7 @@ class MoviesRepository {
     final url = Uri(
       scheme: 'https',
       host: 'api.themoviedb.org',
-      path: '3/movie/now_playing',
+      path: '3/discover/movie',
       queryParameters: {
         'api_key': apiKey,
         'include_adult': 'false',
@@ -61,6 +61,35 @@ class MoviesRepository {
     ).toString();
     final response = await client.get(url, cancelToken: cancelToken);
     return TMDBMovie.fromJson(response.data);
+  }
+
+  Future<List<TMDBMovie>> filterMovies(
+      {required int page,int? releaseYear,double? rating,int? genreId, CancelToken? cancelToken}) async {
+
+    Map<String, dynamic> queryParameters = {
+      'api_key': apiKey,
+      'include_adult': 'false',
+      'page': '$page',
+    };
+    if(releaseYear != null){
+      queryParameters.addAll({'primary_release_year': '$releaseYear'});
+    }
+    if(rating != null){
+      queryParameters.addAll({'vote_average.gte':"$rating"});
+    }
+    if(genreId != null){
+      queryParameters.addAll({"with_genres":'$genreId'});
+    }
+
+    final url = Uri(
+      scheme: 'https',
+      host: 'api.themoviedb.org',
+      path: '3/discover/movie',
+      queryParameters: queryParameters,
+    ).toString();
+    final response = await client.get(url, cancelToken: cancelToken);
+    final movies = TMDBMoviesResponse.fromJson(response.data);
+    return movies.results;
   }
 
 }

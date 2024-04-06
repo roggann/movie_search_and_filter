@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:movie_search_and_filter/features/movies/application/providers.dart';
+import 'package:movie_search_and_filter/features/movies/data/movies_filter_option.dart';
 import 'package:movie_search_and_filter/features/movies/data/movies_pagination.dart';
 import 'package:movie_search_and_filter/features/movies/data/movies_repository.dart';
 import 'package:movie_search_and_filter/features/movies/domain/tmdb_movie.dart';
@@ -77,5 +78,35 @@ void main() {
     expect(movieFromProvider, marvelMovie.first);
 
   });
+
+  test('test fetch movies and filter for Action genre', () async {
+    final fakeMoviesRepository = FakeMoviesRepository();
+    final listener = Listener();
+    final actionGenreId = 28;
+    final container = ProviderContainer(
+      overrides: [
+        ///overriding repository provider with the fake repository
+        moviesRepositoryProvider.overrideWithValue(fakeMoviesRepository),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    ///test the initial state for fetchFilteredMoviesProvider provider
+    /// it should be null state then loading state after firing the provider
+    container.listen(
+      fetchFilteredMoviesProvider(MoviesFilterOptions(page: 1, genreId: actionGenreId)),
+      listener,
+      fireImmediately: true,
+    );
+    verify(() => listener(null, const AsyncLoading<List<TMDBMovie>>()));
+    verifyNoMoreInteractions(listener);
+
+
+    /// fetch movies with filter of genre Action
+    /// should return one movie which is Marvel
+    var movieWithSearch = await container.read(fetchFilteredMoviesProvider(MoviesFilterOptions(page: 1, genreId: actionGenreId)).future);
+    expect(movieWithSearch, marvelMovie);
+  });
+
 
 }
