@@ -104,9 +104,68 @@ void main() {
 
     /// fetch movies with filter of genre Action
     /// should return one movie which is Marvel
-    var movieWithSearch = await container.read(fetchFilteredMoviesProvider(MoviesFilterOptions(page: 1, genreId: actionGenreId)).future);
-    expect(movieWithSearch, marvelMovie);
+    var actionGenreMovie = await container.read(fetchFilteredMoviesProvider(MoviesFilterOptions(page: 1, genreId: actionGenreId)).future);
+    expect(actionGenreMovie, marvelMovie);
   });
 
+  test('test fetch movies and filter for release year 2023', () async {
+    final fakeMoviesRepository = FakeMoviesRepository();
+    final listener = Listener();
+    final releaseYear = 2023;
+    final container = ProviderContainer(
+      overrides: [
+        ///overriding repository provider with the fake repository
+        moviesRepositoryProvider.overrideWithValue(fakeMoviesRepository),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    ///test the initial state for fetchFilteredMoviesProvider provider
+    /// it should be null state then loading state after firing the provider
+    container.listen(
+      fetchFilteredMoviesProvider(MoviesFilterOptions(page: 1, releaseYear: releaseYear)),
+      listener,
+      fireImmediately: true,
+    );
+    verify(() => listener(null, const AsyncLoading<List<TMDBMovie>>()));
+    verifyNoMoreInteractions(listener);
+
+
+    /// fetch movies with filter of releaseYear
+    /// should return 2 movies according to the static data list
+    var movieWithReleaseYearFilter= await container.read(fetchFilteredMoviesProvider(MoviesFilterOptions(page: 1, releaseYear: releaseYear)).future);
+    expect(movieWithReleaseYearFilter.length, 2);
+    expect(movieWithReleaseYearFilter,movieOfFilteringOnReleaseYearOf2023);
+  });
+
+  test('test fetch movies and filter for rating of 7', () async {
+    final fakeMoviesRepository = FakeMoviesRepository();
+    final listener = Listener();
+    final double rate = 7;
+    final container = ProviderContainer(
+      overrides: [
+        ///overriding repository provider with the fake repository
+        moviesRepositoryProvider.overrideWithValue(fakeMoviesRepository),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    ///test the initial state for fetchFilteredMoviesProvider provider
+    /// it should be null state then loading state after firing the provider
+    container.listen(
+      fetchFilteredMoviesProvider(MoviesFilterOptions(page: 1, rating: rate)),
+      listener,
+      fireImmediately: true,
+    );
+    verify(() => listener(null, const AsyncLoading<List<TMDBMovie>>()));
+    verifyNoMoreInteractions(listener);
+
+
+    /// fetch movies with filter of rate
+    /// should return one movie according to the static data list
+    var movieWithRatingOfSevenAndAbove= await container.read(fetchFilteredMoviesProvider(MoviesFilterOptions(page: 1, rating: rate)).future);
+    expect(movieWithRatingOfSevenAndAbove.length, 1);
+    expect(movieWithRatingOfSevenAndAbove, movieOfFilteringOnRatingOfSevenAndAbove);
+  });
 
 }

@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/filtered_movies_screen.dart';
 
 
-class ReleaseYearSection extends StatefulWidget {
+class RateFilterSection extends StatefulWidget {
   @override
-  _ReleaseYearSectionState createState() => _ReleaseYearSectionState();
+  _RateFilterSectionState createState() => _RateFilterSectionState();
 }
 
-class _ReleaseYearSectionState extends State<ReleaseYearSection> {
-  // static release year instead of user entering the desired year
+class _RateFilterSectionState extends State<RateFilterSection> {
+  // static rates instead of user entering the desired rating
   // not the best practice but used just for simplification purpose
-  List<int> releaseYears = [
-   2002,2003,2004,2023,2024
+  List<double> rates = [
+    5,5.5,6,6.5,7,8, 8.9,
   ];
 
   @override
@@ -26,7 +26,7 @@ class _ReleaseYearSectionState extends State<ReleaseYearSection> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 8.0, left: 16.0),
-          child: Text('Release Years', style: Theme.of(context).textTheme.titleMedium),
+          child: Text('Ratings', style: Theme.of(context).textTheme.titleMedium),
         ),
         Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -41,18 +41,18 @@ class _ReleaseYearSectionState extends State<ReleaseYearSection> {
                           width: 700.0,
                           child: Wrap(
                             spacing: 8.0,
-                            children: releaseYears
-                                .map((releaseYear) => GestureDetector(
+                            children: rates
+                                .map((rate) => GestureDetector(
                                 onTap: () => Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => FilteredMoviesScreen(releaseYear: releaseYear,),
+                                    builder: (context) => FilteredMoviesScreen(rating: rate,),
                                   ),
                                 ),
                                 child: Chip(
                                   backgroundColor:Colors.amberAccent,
                                   padding: EdgeInsets.only(left: 4.0, right: 4.0, bottom: 2.0),
                                   label: Text(
-                                    ' ${releaseYear}',
+                                    ' ${rate} stars',
                                     style: Theme.of(context)
                                         .textTheme.bodySmall
                                         ?.copyWith(color: Colors.black, fontWeight: FontWeight.bold),

@@ -19,7 +19,7 @@ var result = {
       "release_date": "2023-09-05",
       "title": "MAR",
       "video": false,
-      "vote_average": 6.2,
+      "vote_average": 7,
       "vote_count": 2
     },
     {
@@ -99,8 +99,69 @@ var resultWithSearch = {
   ]
 };
 
+var resultOfFilteringOnRatingOfSevenAndAbove = {
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/bAvIcsFLfqX5hVmxoKFTRUbu4kk.jpg",
+      "genre_ids": [18, 10751],
+      "id": 1105690,
+      "original_language": "es",
+      "original_title": "MAR",
+      "overview": "Raymundo is constantly tormented during his vacation at the beach by a painful memory from his past that he had not wanted to face.",
+      "popularity": 0.6,
+      "poster_path": "/scSJ1y7WkHwYXHXay0s1QgjueT2.jpg",
+      "release_date": "2023-09-05",
+      "title": "MAR",
+      "video": false,
+      "vote_average": 7,
+      "vote_count": 2
+    },
+  ]
+};
+
+var resultOfFilteringOnReleaseYearOf2023 = {
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/bAvIcsFLfqX5hVmxoKFTRUbu4kk.jpg",
+      "genre_ids": [18, 10751],
+      "id": 1105690,
+      "original_language": "es",
+      "original_title": "MAR",
+      "overview": "Raymundo is constantly tormented during his vacation at the beach by a painful memory from his past that he had not wanted to face.",
+      "popularity": 0.6,
+      "poster_path": "/scSJ1y7WkHwYXHXay0s1QgjueT2.jpg",
+      "release_date": "2023-09-05",
+      "title": "MAR",
+      "video": false,
+      "vote_average": 7,
+      "vote_count": 2
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/w4pRLYYbhHn3sh9kqRgPZM6GjyS.jpg",
+      "genre_ids": [878, 12, 28],
+      "id": 609681,
+      "original_language": "en",
+      "original_title": "The Marvels",
+      "overview":
+          "Carol Danvers, aka Captain Marvel, has reclaimed her identity from the tyrannical Kree and taken revenge on the Supreme Intelligence. But unintended consequences see Carol shouldering the burden of a destabilized universe. When her duties send her to an anomalous wormhole linked to a Kree revolutionary, her powers become entangled with that of Jersey City super-fan Kamala Khan, aka Ms. Marvel, and Carol’s estranged niece, now S.A.B.E.R. astronaut Captain Monica Rambeau. Together, this unlikely trio must team up and learn to work in concert to save the universe.",
+      "popularity": 304.392,
+      "poster_path": "/9GBhzXMFjgcZ3FdR9w3bUMMTps5.jpg",
+      "release_date": "2023-11-08",
+      "title": "The Marvels",
+      "video": false,
+      "vote_average": 6.203,
+      "vote_count": 2133
+    },
+  ]
+};
+
 final movies = result['results']!.map((x) => TMDBMovie.fromJson(x)).toList();
 final marvelMovie = resultWithSearch['results']!.map((x) => TMDBMovie.fromJson(x)).toList();
+final movieOfFilteringOnRatingOfSevenAndAbove = resultOfFilteringOnRatingOfSevenAndAbove['results']!.map((x) => TMDBMovie.fromJson(x)).toList();
+final movieOfFilteringOnReleaseYearOf2023 = resultOfFilteringOnReleaseYearOf2023['results']!.map((x) => TMDBMovie.fromJson(x)).toList();
 
 // a fake repository to return desired test data
 class FakeMoviesRepository extends Mock implements MoviesRepository {
@@ -121,22 +182,18 @@ class FakeMoviesRepository extends Mock implements MoviesRepository {
     return movies.firstWhere((element) => element.id == movieId);
   }
 
-  Future<List<TMDBMovie>> filterMovies(
-      {required int page,int? releaseYear,double? rating,int? genreId, CancelToken? cancelToken}) async {
+  Future<List<TMDBMovie>> filterMovies({required int page, int? releaseYear, double? rating, int? genreId, CancelToken? cancelToken}) async {
     List<TMDBMovie> filteredMovies = [];
-    if(releaseYear != null){
-      filteredMovies= movies.where((element) => element.releaseDate!.contains(releaseYear.toString())).toList();
+    if (releaseYear != null) {
+      filteredMovies = movies.where((element) => element.releaseDate!.contains(releaseYear.toString())).toList();
     }
-    if(rating != null){
-      filteredMovies= movies.where((element) => element.voteAverage!>=rating).toList();
-
+    if (rating != null) {
+      filteredMovies = movies.where((element) => element.voteAverage! >= rating).toList();
     }
-    if(genreId != null){
-      filteredMovies= movies.where((element) => element.genreIds!.contains(genreId)).toList();
+    if (genreId != null) {
+      filteredMovies = movies.where((element) => element.genreIds!.contains(genreId)).toList();
     }
-
 
     return filteredMovies;
   }
-
 }

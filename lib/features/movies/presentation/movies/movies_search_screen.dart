@@ -7,6 +7,8 @@ import 'package:movie_search_and_filter/features/movies/presentation/movies/movi
 import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile_shimmer.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies/movies_search_bar.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/categories_section.dart';
+import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/rate_filter_section.dart';
+import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/release_year_section.dart';
 
 class MoviesSearchScreen extends ConsumerWidget {
   static const String routeName = 'MoviesSearchScreen';
@@ -26,6 +28,8 @@ class MoviesSearchScreen extends ConsumerWidget {
         children: [
           const MoviesSearchBar(),
           CategoriesSection(),
+          ReleaseYearSection(),
+          RateFilterSection(),
           Expanded(
             child: RefreshIndicator(
               onRefresh: () {
