@@ -12,6 +12,8 @@ class MoviesRepository {
   final Dio client;
   final String apiKey;
 
+
+///search for movie by query "movie title"
   Future<List<TMDBMovie>> searchMovies(
       {required int page, String query = '', CancelToken? cancelToken}) async {
     final url = Uri(
@@ -30,7 +32,7 @@ class MoviesRepository {
     return movies.results;
   }
 
-
+/// fetch list of movies
   Future<List<TMDBMovie>> fetchMovies(
       {required int page, CancelToken? cancelToken}) async {
     final url = Uri(
@@ -63,6 +65,7 @@ class MoviesRepository {
     return TMDBMovie.fromJson(response.data);
   }
 
+  /// filter movies by release year and rating and genre
   Future<List<TMDBMovie>> filterMovies(
       {required int page,int? releaseYear,double? rating,int? genreId, CancelToken? cancelToken}) async {
 
@@ -97,6 +100,7 @@ class MoviesRepository {
 final moviesRepositoryProvider = Provider<MoviesRepository>(
       (ref) => MoviesRepository(
         client: ref.watch(dioProvider),
+        /// mdpi api key
         apiKey: "5597045a439aa079140e25053af71ed6",
       ),
 );

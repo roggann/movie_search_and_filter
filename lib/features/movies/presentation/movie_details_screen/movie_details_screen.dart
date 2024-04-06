@@ -5,6 +5,8 @@ import 'package:movie_search_and_filter/features/movies/domain/tmdb_movie.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile_shimmer.dart';
 
+// screen to show movie detail
+
 class MovieDetailsScreen extends ConsumerWidget {
   static const String routeName = 'MovieDetailsScreen';
 
@@ -27,6 +29,7 @@ class MovieDetailsScreen extends ConsumerWidget {
         ),
       );
     } else {
+      // watching the provider of getting the movie by id
       final movieAsync = ref.watch(getMovieByIdProvider( movieId));
       return movieAsync.when(
         error: (e, st) => Scaffold(

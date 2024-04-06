@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_search_and_filter/common_widgets/movie_poster.dart';
 import 'package:shimmer/shimmer.dart';
 
+// shimmer to show while loading the data
 class MovieListTileShimmer extends StatelessWidget {
   const MovieListTileShimmer({super.key});
 

@@ -46,6 +46,7 @@ class MoviesSearchScreen extends ConsumerWidget {
                 childrenDelegate: SliverChildBuilderDelegate((context, index) {
                   final page = index ~/ pageSize + 1;
                   final indexInPage = index % pageSize;
+                  // triggering and watching the provider to fetch the list of movies
                   final moviesList = ref.watch(
                     fetchPaginatedMoviesFutureProvider(
                         MoviesPagination(page: page, query: query)),
@@ -61,6 +62,7 @@ class MoviesSearchScreen extends ConsumerWidget {
                       final movie = movies[indexInPage];
                       return MovieListTile(
                         movie: movie,
+                        // go to movie details screen and pass the movie with it's id
                         onPressed: () =>  Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => MovieDetailsScreen(movieId: movie.id, movie: movie,),

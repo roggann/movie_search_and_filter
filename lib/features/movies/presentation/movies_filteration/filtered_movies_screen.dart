@@ -6,6 +6,8 @@ import 'package:movie_search_and_filter/features/movies/presentation/movie_detai
 import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile_shimmer.dart';
 
+// screen to show the list of movies as result of different filteration options
+
 class FilteredMoviesScreen extends ConsumerWidget {
   static const String routeName = 'FilteredMoviesScreen';
   final int? releaseYear;

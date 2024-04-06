@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/filter_chip_widget.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/filtered_movies_screen.dart';
 
+// rate filtration widget in the movie search screen
+
 class RateFilterSection extends StatefulWidget {
   @override
   _RateFilterSectionState createState() => _RateFilterSectionState();

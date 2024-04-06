@@ -8,7 +8,7 @@ import 'package:movie_search_and_filter/features/movies/data/movies_repository.d
 import 'package:movie_search_and_filter/features/movies/domain/tmdb_movie.dart';
 import 'package:movie_search_and_filter/utils/exceptions.dart';
 
-// family future provider for getting a movie by name "query" or without
+// family future provider for searching for a movie by movie title "query" if not null or get list of movies without search
 final fetchPaginatedMoviesFutureProvider = AutoDisposeFutureProviderFamily<List<TMDBMovie>, MoviesPagination>((ref, moviesPagination) async {
   final moviesRepo = ref.watch(moviesRepositoryProvider);
 // Cancel the page request if the UI no longer needs it
@@ -58,18 +58,23 @@ final fetchPaginatedMoviesFutureProvider = AutoDisposeFutureProviderFamily<List<
 
 // family future provider for getting a movie details by id
 final getMovieByIdProvider = FutureProviderFamily<TMDBMovie, int>((ref, id) {
+  // call the endpoint for getting movie by its id
   return ref.watch(moviesRepositoryProvider).movie(movieId: id);
 });
 
-// family future provider for getting a movies list with filters
+// family future provider for getting a movies list with filters options
+// releaseYear rating genre
 final fetchFilteredMoviesProvider = AutoDisposeFutureProviderFamily<List<TMDBMovie>, MoviesFilterOptions>((ref, moviesFilterOptions) async {
   final moviesRepo = ref.watch(moviesRepositoryProvider);
 
   if (moviesFilterOptions.genreId != null) {
+    // call the endpoint with specified genre
     return moviesRepo.filterMovies(page: moviesFilterOptions.page, genreId: moviesFilterOptions.genreId);
   } else if (moviesFilterOptions.releaseYear != null) {
+    // call the endpoint with the specified release year
     return moviesRepo.filterMovies(page: moviesFilterOptions.page, releaseYear: moviesFilterOptions.releaseYear);
   } else if (moviesFilterOptions.rating != null) {
+    // call the endpoint with the specified rating
     return moviesRepo.filterMovies(page: moviesFilterOptions.page, rating: moviesFilterOptions.rating);
   }
   return [];

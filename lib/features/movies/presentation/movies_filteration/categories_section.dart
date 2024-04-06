@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/filter_chip_widget.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/filtered_movies_screen.dart';
 
+// genre filtration widget in the movie search screen
 class CategoriesSection extends StatefulWidget {
   @override
   _CategoriesSectionState createState() => _CategoriesSectionState();
@@ -10,7 +11,6 @@ class CategoriesSection extends StatefulWidget {
 class _CategoriesSectionState extends State<CategoriesSection> {
   // static genre list instead of calling the api of getting the genres
   // not the best practice but used just for simplification purpose
-
   List<List> genres = [
     [28, "Action"],
     [12, "Adventure"],

@@ -53,8 +53,10 @@ class _SearchBarState extends ConsumerState<MoviesSearchBar> {
                         hintStyle: TextStyle(color: Colors.grey.shade400),
                       ),
                       onEditingComplete: () {
+                        // hide the keyboard
                         FocusManager.instance.primaryFocus?.unfocus();
                       },
+                      // change the provider every time the user types
                       onChanged: (text) => ref
                           .read(moviesSearchTextProvider.notifier)
                           .state = text,

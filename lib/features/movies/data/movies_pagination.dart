@@ -1,7 +1,8 @@
-
+// class for pagination and searching by movie title
 class MoviesPagination {
   MoviesPagination({required this.page, required this.query});
   final int page;
+  // user typed movie title
   final String query;
 
   @override

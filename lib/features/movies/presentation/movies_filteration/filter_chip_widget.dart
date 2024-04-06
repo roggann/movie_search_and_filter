@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-
+// widget for filter chip
 class FilterChipWidget extends StatelessWidget {
   final Function filterChipAction;
   final String filterChipTitle;

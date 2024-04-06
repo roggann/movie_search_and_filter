@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movie_search_and_filter/common_widgets/movie_poster.dart';
 import 'package:movie_search_and_filter/features/movies/domain/tmdb_movie.dart';
 
+// widget to show the movie item list
+// showing the poster of the movie + releaseDate as text
 class MovieListTile extends StatelessWidget {
   const MovieListTile({
     super.key,
