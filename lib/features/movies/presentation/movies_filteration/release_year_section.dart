@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/filter_chip_widget.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/filtered_movies_screen.dart';
-
 
 class ReleaseYearSection extends StatefulWidget {
   @override
@@ -10,9 +10,7 @@ class ReleaseYearSection extends StatefulWidget {
 class _ReleaseYearSectionState extends State<ReleaseYearSection> {
   // static release year instead of user entering the desired year
   // not the best practice but used just for simplification purpose
-  List<int> releaseYears = [
-   2002,2003,2004,2023,2024
-  ];
+  List<int> releaseYears = [2002, 2003, 2004, 2023, 2024];
 
   @override
   void initState() {
@@ -29,43 +27,37 @@ class _ReleaseYearSectionState extends State<ReleaseYearSection> {
           child: Text('Release Years', style: Theme.of(context).textTheme.titleMedium),
         ),
         Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Container(
-                          width: 700.0,
-                          child: Wrap(
-                            spacing: 8.0,
-                            children: releaseYears
-                                .map((releaseYear) => GestureDetector(
-                                onTap: () => Navigator.of(context).push(
+          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Container(
+                    width: 700.0,
+                    child: Wrap(
+                      spacing: 8.0,
+                      children: releaseYears
+                          .map((releaseYear) => FilterChipWidget(
+                                filterChipAction: () => Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => FilteredMoviesScreen(releaseYear: releaseYear,),
+                                    builder: (context) => FilteredMoviesScreen(
+                                      releaseYear: releaseYear,
+                                    ),
                                   ),
                                 ),
-                                child: Chip(
-                                  backgroundColor:Colors.amberAccent,
-                                  padding: EdgeInsets.only(left: 4.0, right: 4.0, bottom: 2.0),
-                                  label: Text(
-                                    ' ${releaseYear}',
-                                    style: Theme.of(context)
-                                        .textTheme.bodySmall
-                                        ?.copyWith(color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                )))
-                                .toList(),
-                          ),
-                        ),
-                      ),
-                    ],
+                                filterChipTitle: '${releaseYear}',
+                              ))
+                          .toList(),
+                    ),
                   ),
                 ),
-              ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }

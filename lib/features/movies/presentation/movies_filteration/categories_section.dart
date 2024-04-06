@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/filter_chip_widget.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/filtered_movies_screen.dart';
 
 class CategoriesSection extends StatefulWidget {
@@ -48,23 +49,17 @@ class _CategoriesSectionState extends State<CategoriesSection> {
                     child: Wrap(
                       spacing: 8.0,
                       children: genres
-                          .map((genre) => GestureDetector(
-                              onTap: () => Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => FilteredMoviesScreen(
-                                        genre: genre.last,
-                                        genreId: genre.first,
-                                      ),
+                          .map((genre) => FilterChipWidget(
+                                filterChipAction: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => FilteredMoviesScreen(
+                                      genre: genre.last,
+                                      genreId: genre.first,
                                     ),
                                   ),
-                              child: Chip(
-                                backgroundColor: Colors.amberAccent,
-                                padding: EdgeInsets.only(left: 4.0, right: 4.0, bottom: 2.0),
-                                label: Text(
-                                  ' ${genre.last}',
-                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.bold),
                                 ),
-                              )))
+                                filterChipTitle: '${genre.last}',
+                              ))
                           .toList(),
                     ),
                   ),
