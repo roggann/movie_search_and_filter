@@ -6,7 +6,8 @@ A new Flutter project.
 
 this is a project for building a mobile application using Flutter that allows users to search for movies using a public API and apply filters to refine their search results. 
 
-the whole code + unit tests + readMe file is on dev branch 
+**the whole code + unit tests + readMe file is on dev branch **
+**I used Channel stable, 3.16.5 flutter sdk version with Dart Sdk 3.2.3 **
 
 this app includes these features :
  #1 fetch all movies from the TMDB(The Movie Database) after integrating with its api.
