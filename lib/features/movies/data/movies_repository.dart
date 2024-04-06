@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:movie_search_and_filter/api/api_client.dart';
 import 'package:movie_search_and_filter/features/movies/domain/tmdb_movie.dart';
 import 'package:movie_search_and_filter/features/movies/domain/tmdb_movies_response.dart';
-import 'package:movie_search_and_filter/utils/api_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 

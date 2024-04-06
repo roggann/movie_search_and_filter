@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_search_and_filter/features/movies/application/providers.dart';
 import 'package:movie_search_and_filter/features/movies/domain/tmdb_movie.dart';
-import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile.dart';
-import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile_shimmer.dart';
+import 'package:movie_search_and_filter/features/movies/presentation/common_widgets/movie_list_tile.dart';
+import 'package:movie_search_and_filter/features/movies/presentation/common_widgets/movie_list_tile_shimmer.dart';
 
 // screen to show movie detail
 

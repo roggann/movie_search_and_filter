@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_search_and_filter/features/movies/application/providers.dart';
-import 'package:movie_search_and_filter/features/movies/data/movies_pagination.dart';
+import 'package:movie_search_and_filter/features/movies/domain/movies_pagination.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movie_details_screen/movie_details_screen.dart';
-import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile.dart';
-import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile_shimmer.dart';
+import 'package:movie_search_and_filter/features/movies/presentation/common_widgets/movie_list_tile.dart';
+import 'package:movie_search_and_filter/features/movies/presentation/common_widgets/movie_list_tile_shimmer.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies/movies_search_bar.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/categories_section.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movies_filteration/rate_filter_section.dart';
@@ -21,6 +21,7 @@ class MoviesSearchScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final query = ref.watch(moviesSearchTextProvider);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('TMDB Movies'),
       ),

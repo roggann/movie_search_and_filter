@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_search_and_filter/features/movies/application/providers.dart';
-import 'package:movie_search_and_filter/features/movies/data/movies_filter_option.dart';
+import 'package:movie_search_and_filter/features/movies/domain/movies_filter_option.dart';
 import 'package:movie_search_and_filter/features/movies/presentation/movie_details_screen/movie_details_screen.dart';
-import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile.dart';
-import 'package:movie_search_and_filter/features/movies/presentation/movies/movie_list_tile_shimmer.dart';
+import 'package:movie_search_and_filter/features/movies/presentation/common_widgets/movie_list_tile.dart';
+import 'package:movie_search_and_filter/features/movies/presentation/common_widgets/movie_list_tile_shimmer.dart';
 
 // screen to show the list of movies as result of different filteration options
 

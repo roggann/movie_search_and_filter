@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:movie_search_and_filter/features/movies/application/providers.dart';
-import 'package:movie_search_and_filter/features/movies/data/movies_filter_option.dart';
-import 'package:movie_search_and_filter/features/movies/data/movies_pagination.dart';
+import 'package:movie_search_and_filter/features/movies/domain/movies_filter_option.dart';
+import 'package:movie_search_and_filter/features/movies/domain/movies_pagination.dart';
 import 'package:movie_search_and_filter/features/movies/data/movies_repository.dart';
 import 'package:movie_search_and_filter/features/movies/domain/tmdb_movie.dart';
 

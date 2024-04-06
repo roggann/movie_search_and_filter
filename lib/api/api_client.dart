@@ -2,7 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_search_and_filter/utils/api_interceptors.dart';
+import 'package:movie_search_and_filter/api/api_interceptors.dart';
 
 
 final dioProvider = Provider((ref) {

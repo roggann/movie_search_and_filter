@@ -4,13 +4,26 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+this is a project for building a mobile application using Flutter that allows users to search for movies using a public API and apply filters to refine their search results. 
 
-A few resources to get you started if this is your first Flutter project:
+the whole code + unit tests + readMe file is on dev branch 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+this app includes these features :
+ #1 fetch all movies from the TMDB(The Movie Database) after integrating with its api.
+ #2 search functionality using the title typed by the user in the search text field.
+ #3 filtration feature using three movie features (genre, release year, rating).
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# the project structure goes like this:
+I used Feature-First Architecture because it offers a structured approach to app development,
+allowing to focus on building and maintaining individual features efficiently.
+## api folder : it contains the dio HTTP networking client and its interceptors and exceptions
+## common widgets folder : for common widgets used by more than one feature.
+## features folder : is for features of the app and each feature may have sub features
+
+inside every feature there are 4 layers:
+### application layer: it has the providers used for this feature
+### data layer: it has the repository that fetches the data from endpoints
+### domain layer: it has the models used for this features
+### presentation layer : it has all screens and widget used for this feature also has common widgets between sub-features.
+
+unit tests folders have the same structure.

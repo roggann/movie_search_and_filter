@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_search_and_filter/features/movies/data/movies_filter_option.dart';
-import 'package:movie_search_and_filter/features/movies/data/movies_pagination.dart';
+import 'package:movie_search_and_filter/api/exceptions.dart';
+import 'package:movie_search_and_filter/features/movies/domain/movies_filter_option.dart';
+import 'package:movie_search_and_filter/features/movies/domain/movies_pagination.dart';
 import 'package:movie_search_and_filter/features/movies/data/movies_repository.dart';
 import 'package:movie_search_and_filter/features/movies/domain/tmdb_movie.dart';
-import 'package:movie_search_and_filter/utils/exceptions.dart';
 
 // family future provider for searching for a movie by movie title "query" if not null or get list of movies without search
 final fetchPaginatedMoviesFutureProvider = AutoDisposeFutureProviderFamily<List<TMDBMovie>, MoviesPagination>((ref, moviesPagination) async {
